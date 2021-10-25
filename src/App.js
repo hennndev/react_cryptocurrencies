@@ -1,25 +1,41 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import 'antd/dist/antd.css'
+import News from './components/News'
+import styled from 'styled-components'
+import Homepage from './pages/Homepage'
+import Navbar from './components/Navbar'
+import CryptoDetails from './pages/CryptoDetails'
+import Cryptocurrencies from './components/Cryptocurrencies'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
-function App() {
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <Router>
+      <AppContainer>
+        <Navbar />
+        <div className="routes">
+          <Switch>
+            <Route path="/" exact component={Homepage}/>
+            <Route path="/cryptocurrencies" component={Cryptocurrencies}/>
+            <Route path="/crypto/:id" component={CryptoDetails}/>
+            <Route path="/news" component={News}/>
+          </Switch>
+        </div>
+      </AppContainer>
+    </Router>
+  )
 }
 
-export default App;
+
+const AppContainer = styled.div`
+  display: flex;
+  .routes {
+    flex: 0.83;
+  }
+  @media(max-width: 768px) {
+    flex-direction: column;
+  }
+`;
+
+export default App
